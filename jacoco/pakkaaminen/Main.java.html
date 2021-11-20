@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pakkaaminen</a> &gt; <a href="index.source.html" class="el_package">pakkaaminen</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pakkaaminen;
+
+/**
+ *
+ * @author liekki
+ */
+<span class="nc" id="L12">public class Main {</span>
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+<span class="nc" id="L18">        System.out.println(&quot;Hei maailma!&quot;);</span>
+        
+        
+<span class="nc" id="L21">        Huffman encoder = new Huffman(&quot;this is an example of a huffman tree and it is very nice.&quot;);</span>
+<span class="nc" id="L22">        MinHeap heap = new MinHeap(10);</span>
+<span class="nc" id="L23">        heap.insert(new HuffmanTree('A', 5));</span>
+<span class="nc" id="L24">        heap.debug();</span>
+<span class="nc" id="L25">        heap.insert(new HuffmanTree('B', 2));</span>
+<span class="nc" id="L26">        heap.debug();</span>
+<span class="nc" id="L27">        heap.insert(new HuffmanTree('C', 7));</span>
+<span class="nc" id="L28">        heap.debug();</span>
+<span class="nc" id="L29">        System.out.println(heap.pop().getValue());</span>
+<span class="nc" id="L30">        heap.debug();</span>
+<span class="nc" id="L31">        System.out.println(heap.pop().getValue());</span>
+<span class="nc" id="L32">        heap.debug();</span>
+<span class="nc" id="L33">        System.out.println(heap.pop().getValue());</span>
+<span class="nc" id="L34">        heap.debug();</span>
+<span class="nc" id="L35">        System.out.println(heap.pop());</span>
+<span class="nc" id="L36">        heap.debug();</span>
+<span class="nc" id="L37">        System.out.println(heap.pop());</span>
+<span class="nc" id="L38">        heap.debug();</span>
+<span class="nc" id="L39">        System.out.println(heap.pop());</span>
+<span class="nc" id="L40">        heap.debug();</span>
+<span class="nc" id="L41">        System.out.println(heap.pop());</span>
+<span class="nc" id="L42">        heap.debug();</span>
+<span class="nc" id="L43">        System.out.println(heap.pop());</span>
+<span class="nc" id="L44">        heap.debug();</span>
+        
+<span class="nc" id="L46">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
