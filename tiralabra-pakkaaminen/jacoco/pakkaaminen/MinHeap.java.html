@@ -96,7 +96,7 @@ public class MinHeap {
         }
 
         // if min heap property does not hold true for node we swap over and repeat
-<span class="pc bpc" id="L99" title="3 of 4 branches missed.">        if (this.heap[n].getWeight() &gt; this.heap[left(n)].getWeight() || this.heap[n].getWeight() &gt; this.heap[right(n)].getWeight()) {</span>
+<span class="pc bpc" id="L99" title="1 of 4 branches missed.">        if (this.heap[n].getWeight() &gt; this.heap[left(n)].getWeight() || this.heap[n].getWeight() &gt; this.heap[right(n)].getWeight()) {</span>
 <span class="fc bfc" id="L100" title="All 2 branches covered.">            if (this.heap[left(n)].getWeight() &lt; this.heap[right(n)].getWeight()) {</span>
 <span class="fc" id="L101">                swap(n, left(n));</span>
 <span class="fc" id="L102">                heapify(left(n));</span>
@@ -107,38 +107,32 @@ public class MinHeap {
         }
 <span class="fc" id="L108">    }</span>
 
-    public void debug() {
-<span class="nc bnc" id="L111" title="All 2 branches missed.">        for (int i = 0; i &lt;= this.size; i++) {</span>
-<span class="nc" id="L112">            System.out.print(this.heap[i].getValue() + &quot;: &quot; + this.heap[i].getWeight() + &quot; &quot;);</span>
-        }
-<span class="nc" id="L114">        System.out.println(&quot;&quot;);</span>
-<span class="nc" id="L115">    }</span>
-
     /**
      * returns the minimum element from the heap
      *
      * @return minimum value
      */
     public HuffmanTree pop() {
-<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (this.size == 0) {</span>
-<span class="fc" id="L124">            return null;</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (this.size == 0) {</span>
+<span class="fc" id="L117">            return null;</span>
         }
         // in a min heap the smallest value is always at position 1
-<span class="fc" id="L127">        HuffmanTree elem = this.heap[1];</span>
+<span class="fc" id="L120">        HuffmanTree elem = this.heap[1];</span>
         // enforce min heap property by assigning heap at position 1 to the last element
-<span class="fc" id="L129">        this.heap[1] = this.heap[this.size--];</span>
+<span class="fc" id="L122">        this.heap[1] = this.heap[this.size--];</span>
         // now when we heapify from position 1 we are guaranteed that the min heap property holds
-<span class="fc" id="L131">        heapify(1);</span>
+<span class="fc" id="L124">        heapify(1);</span>
 
-<span class="fc" id="L133">        return elem;</span>
+<span class="fc" id="L126">        return elem;</span>
     }
 
     /**
      * returns the heap size
-     * @return 
+     *
+     * @return
      */
     public int getSize() {
-<span class="nc" id="L141">        return this.size;</span>
+<span class="fc" id="L135">        return this.size;</span>
     }
 
 }

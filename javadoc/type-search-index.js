@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"pakkaaminen","l":"Huffman"},{"p":"pakkaaminen","l":"HuffmanTree"},{"p":"pakkaaminen","l":"Main"},{"p":"pakkaaminen","l":"MinHeap"}]

@@ -19,74 +19,77 @@ public class HuffmanTree implements Serializable {
     private HuffmanTree left;
     private HuffmanTree right;
 
-<span class="fc" id="L22">    public HuffmanTree() {</span>
-<span class="fc" id="L23">        this.value = Character.MIN_VALUE;</span>
-<span class="fc" id="L24">        this.weight = Integer.MIN_VALUE;</span>
-<span class="fc" id="L25">        this.left = null;</span>
-<span class="fc" id="L26">        this.right = null;</span>
-<span class="fc" id="L27">    }</span>
+    /**
+     * Constructor without params, everything null /
+     */
+<span class="fc" id="L25">    public HuffmanTree() {</span>
+<span class="fc" id="L26">        this.value = Character.MIN_VALUE;</span>
+<span class="fc" id="L27">        this.weight = Integer.MIN_VALUE;</span>
+<span class="fc" id="L28">        this.left = null;</span>
+<span class="fc" id="L29">        this.right = null;</span>
+<span class="fc" id="L30">    }</span>
 
-<span class="nc" id="L29">    public HuffmanTree(char value) {</span>
-<span class="nc" id="L30">        this.value = value;</span>
-<span class="nc" id="L31">        this.weight = 0;</span>
-<span class="nc" id="L32">        this.left = null;</span>
-<span class="nc" id="L33">        this.right = null;</span>
-<span class="nc" id="L34">    }</span>
+    /**
+     * Constructor for a leaf node
+     *
+     * @param value
+     * @param weight
+     */
+<span class="fc" id="L38">    public HuffmanTree(char value, int weight) {</span>
+<span class="fc" id="L39">        this.value = value;</span>
+<span class="fc" id="L40">        this.weight = weight;</span>
+<span class="fc" id="L41">        this.left = null;</span>
+<span class="fc" id="L42">        this.right = null;</span>
+<span class="fc" id="L43">    }</span>
 
-<span class="fc" id="L36">    public HuffmanTree(char value, int weight) {</span>
-<span class="fc" id="L37">        this.value = value;</span>
-<span class="fc" id="L38">        this.weight = weight;</span>
-<span class="fc" id="L39">        this.left = null;</span>
-<span class="fc" id="L40">        this.right = null;</span>
-<span class="fc" id="L41">    }</span>
+    /**
+     * Constructor with children
+     *
+     * @param weight
+     * @param left
+     * @param right
+     */
+<span class="fc" id="L52">    public HuffmanTree(int weight, HuffmanTree left, HuffmanTree right) {</span>
+<span class="fc" id="L53">        this.value = Character.MIN_VALUE;</span>
+<span class="fc" id="L54">        this.weight = weight;</span>
+<span class="fc" id="L55">        this.left = left;</span>
+<span class="fc" id="L56">        this.right = right;</span>
+<span class="fc" id="L57">    }</span>
 
-<span class="nc" id="L43">    public HuffmanTree(int weight, HuffmanTree left, HuffmanTree right) {</span>
-<span class="nc" id="L44">        this.value = Character.MIN_VALUE;</span>
-<span class="nc" id="L45">        this.weight = weight;</span>
-<span class="nc" id="L46">        this.left = left;</span>
-<span class="nc" id="L47">        this.right = right;</span>
-<span class="nc" id="L48">    }</span>
-
+    /**
+     * Returns the weight of this node and
+     *
+     * @return
+     */
     public int getWeight() {
-<span class="fc" id="L51">        return this.weight;</span>
+<span class="fc" id="L65">        return this.weight;</span>
     }
 
-    public void setValue(char value) {
-<span class="nc" id="L55">        this.value = value;</span>
-<span class="nc" id="L56">    }</span>
-
+    /**
+     * Gets the value (or symbol) tied to this node
+     *
+     * @param value
+     */
     public char getValue() {
-<span class="nc" id="L59">        return this.value;</span>
+<span class="fc" id="L74">        return this.value;</span>
     }
 
-    public void setLeft(HuffmanTree left) {
-<span class="nc" id="L63">        this.left = left;</span>
-<span class="nc" id="L64">    }</span>
-
-    public void setRight(HuffmanTree right) {
-<span class="nc" id="L67">        this.right = right;</span>
-<span class="nc" id="L68">    }</span>
-
+    /**
+     * Get left child
+     *
+     * @return
+     */
     public HuffmanTree getLeft() {
-<span class="nc" id="L71">        return this.left;</span>
+<span class="fc" id="L83">        return this.left;</span>
     }
 
+    /**
+     * Get right child
+     *
+     * @return
+     */
     public HuffmanTree getRight() {
-<span class="nc" id="L75">        return this.right;</span>
+<span class="fc" id="L92">        return this.right;</span>
     }
-
-    public void debug() {
-<span class="nc" id="L79">        System.out.println(this.weight);</span>
-
-<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (this.left != null) {</span>
-<span class="nc" id="L82">            System.out.print(&quot;L: &quot;);</span>
-<span class="nc" id="L83">            this.left.debug();</span>
-        }
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (this.right != null) {</span>
-<span class="nc" id="L86">            System.out.print(&quot;R: &quot;);</span>
-<span class="nc" id="L87">            this.right.debug();</span>
-
-        }
-<span class="nc" id="L90">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

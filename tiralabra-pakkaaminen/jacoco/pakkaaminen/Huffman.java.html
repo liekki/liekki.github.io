@@ -5,11 +5,6 @@
  */
 package pakkaaminen;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,55 +14,46 @@ import java.util.Map;
  */
 public final class Huffman {
 
-    private String input;
-    private HashMap&lt;Character, Integer&gt; frequencyTable;
-    private MinHeap heap;
-    private HashMap&lt;Character, Integer&gt; codes;
-    private HuffmanTree tree;
-    
-<span class="nc" id="L28">    public Huffman(String input) {</span>
-<span class="nc" id="L29">        this.input = input;</span>
-<span class="nc" id="L30">        this.codes = new HashMap&lt;&gt;();</span>
+    private final String input;
+    private final HashMap&lt;Character, Integer&gt; frequencyTable;
+    private final MinHeap heap;
+    private final HashMap&lt;Character, Integer&gt; codes;
+    private final HuffmanTree tree;
 
-<span class="nc" id="L32">        this.frequencyTable = generateFrequencyTable(this.input);</span>
-<span class="nc" id="L33">        this.heap = generateHuffmanHeap(this.frequencyTable, 256);</span>
+<span class="fc" id="L23">    public Huffman(String input) {</span>
+<span class="fc" id="L24">        this.input = input;</span>
+<span class="fc" id="L25">        this.codes = new HashMap&lt;&gt;();</span>
 
-<span class="nc" id="L35">        this.tree = generateHuffmanTree(heap);</span>
-      
-<span class="nc" id="L37">        generateCodes(this.tree, this.codes, &quot;&quot;);</span>
+<span class="fc" id="L27">        this.frequencyTable = generateFrequencyTable(this.input);</span>
+<span class="fc" id="L28">        this.heap = generateHuffmanHeap(this.frequencyTable, 256);</span>
 
-<span class="nc" id="L39">        String encoded = &quot;&quot;;</span>
-        try {
-<span class="nc" id="L41">            encoded = serializeHuffmanTree(this.tree) + &quot;#&quot; + encode(this.codes, this.input);</span>
+<span class="fc" id="L30">        this.tree = generateHuffmanTree(heap);</span>
 
-<span class="nc" id="L43">        } catch(IOException e) {</span>
-<span class="nc" id="L44">            System.out.println(&quot;Exception: &quot; + e.getMessage());</span>
-<span class="nc" id="L45">            return;</span>
-<span class="nc" id="L46">        }</span>
-        
-        
-<span class="nc" id="L49">        System.out.println(this.input);</span>
-<span class="nc" id="L50">        System.out.println(&quot;Raw input size: &quot; + input.length() * 8 + &quot; bits.&quot;);</span>
-<span class="nc" id="L51">        System.out.println(encoded);</span>
-<span class="nc" id="L52">        System.out.println(&quot;Encoded size: &quot; + encoded.length() + &quot; bits.&quot;);</span>
-<span class="nc" id="L53">    }</span>
+<span class="fc" id="L32">        generateCodes(this.tree, this.codes, &quot;&quot;);</span>
 
-    
+<span class="fc" id="L34">        String encoded = encode(this.codes, this.input);</span>
+<span class="fc" id="L35">        System.out.println(this.input);</span>
+<span class="fc" id="L36">        System.out.println(&quot;Raw input size: &quot; + input.length() * 8 + &quot; bits.&quot;);</span>
+<span class="fc" id="L37">        System.out.println(encoded);</span>
+<span class="fc" id="L38">        System.out.println(&quot;Encoded size: &quot; + encoded.length() + &quot; bits.&quot;);</span>
+<span class="fc" id="L39">    }</span>
+
     /**
-     * Maps each symbol in the input with the corresponding encoding from the encoding table
-     * 
+     * Maps each symbol in the input with the corresponding encoding from the
+     * encoding table
+     *
      * @param codes Huffman encoding table
      * @param input string to be encoded
-     * @return 
+     * @return
      */
-    public String encode(HashMap codes, String input) {
-<span class="nc" id="L64">        StringBuilder output = new StringBuilder();</span>
+    public static String encode(HashMap codes, String input) {
+<span class="fc" id="L50">        StringBuilder output = new StringBuilder();</span>
 
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (int i = 0; i &lt; input.length(); i++) {</span>
-<span class="nc" id="L67">            output.append(codes.get(input.charAt(i)));</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; input.length(); i++) {</span>
+<span class="fc" id="L53">            output.append(codes.get(input.charAt(i)));</span>
         }
 
-<span class="nc" id="L70">        return output.toString();</span>
+<span class="fc" id="L56">        return output.toString();</span>
     }
 
     /**
@@ -78,116 +64,78 @@ public final class Huffman {
      * @param heap contains all the nodes as HuffmanTree objects of size 1
      * @return final Huffman tree
      */
-    public HuffmanTree generateHuffmanTree(MinHeap heap) {
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        while (heap.getSize() &gt; 1) {</span>
-<span class="nc" id="L83">            HuffmanTree right = heap.pop();</span>
-<span class="nc" id="L84">            HuffmanTree left = heap.pop();</span>
-<span class="nc" id="L85">            HuffmanTree current = new HuffmanTree(left.getWeight() + right.getWeight(), left, right);</span>
-<span class="nc" id="L86">            heap.insert(current);</span>
-<span class="nc" id="L87">        }</span>
+    public static HuffmanTree generateHuffmanTree(MinHeap heap) {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        while (heap.getSize() &gt; 1) {</span>
+<span class="fc" id="L69">            HuffmanTree right = heap.pop();</span>
+<span class="fc" id="L70">            HuffmanTree left = heap.pop();</span>
+<span class="fc" id="L71">            HuffmanTree current = new HuffmanTree(left.getWeight() + right.getWeight(), left, right);</span>
+<span class="fc" id="L72">            heap.insert(current);</span>
+<span class="fc" id="L73">        }</span>
 
-<span class="nc" id="L89">        HuffmanTree tree = heap.pop();</span>
+<span class="fc" id="L75">        HuffmanTree tree = heap.pop();</span>
 
-<span class="nc" id="L91">        return tree;</span>
+<span class="fc" id="L77">        return tree;</span>
     }
 
     /**
-     * Generates a frequency table containing the number of occurrences for each 
+     * Generates a frequency table containing the number of occurrences for each
      * individual symbol in the input.
-     * 
-     * @param str input string 
+     *
+     * @param str input string
      * @return the resulting frequency table as a HashMap
      */
     public static HashMap generateFrequencyTable(String str) {
-<span class="fc" id="L102">        HashMap&lt;Character, Integer&gt; table = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L88">        HashMap&lt;Character, Integer&gt; table = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L104" title="All 2 branches covered.">        for (int i = 0; i &lt; str.length(); i++) {</span>
-<span class="fc bfc" id="L105" title="All 2 branches covered.">            if (table.containsKey(str.charAt(i))) {</span>
-<span class="fc" id="L106">                Integer previous = table.get(str.charAt(i));</span>
-<span class="fc" id="L107">                table.put(str.charAt(i), previous + 1);</span>
-<span class="fc" id="L108">            } else {</span>
-<span class="fc" id="L109">                table.put(str.charAt(i), 1);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for (int i = 0; i &lt; str.length(); i++) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if (table.containsKey(str.charAt(i))) {</span>
+<span class="fc" id="L92">                Integer previous = table.get(str.charAt(i));</span>
+<span class="fc" id="L93">                table.put(str.charAt(i), previous + 1);</span>
+<span class="fc" id="L94">            } else {</span>
+<span class="fc" id="L95">                table.put(str.charAt(i), 1);</span>
             }
         }
 
-<span class="fc" id="L113">        return table;</span>
+<span class="fc" id="L99">        return table;</span>
     }
 
     /**
-     * Initializes the heap by inserting 1-sized HuffmanTrees into a heap.
-     * 
+     * Initializes the heap by populating it with 1-sized HuffmanTrees.
+     *
      * @param table frequency table
      * @param size size of the heap
-     * @return 
+     * @return
      */
-    public MinHeap generateHuffmanHeap(HashMap&lt;Character, Integer&gt; table, int size) {
-<span class="nc" id="L124">        MinHeap heap = new MinHeap(size);</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">        for (Map.Entry&lt;Character, Integer&gt; entry : table.entrySet()) {</span>
-<span class="nc" id="L126">            Character symbol = entry.getKey();</span>
-<span class="nc" id="L127">            Integer weight = entry.getValue();</span>
+    public static MinHeap generateHuffmanHeap(HashMap&lt;Character, Integer&gt; table, int size) {
+<span class="fc" id="L110">        MinHeap heap = new MinHeap(size);</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        for (Map.Entry&lt;Character, Integer&gt; entry : table.entrySet()) {</span>
+<span class="fc" id="L112">            Character symbol = entry.getKey();</span>
+<span class="fc" id="L113">            Integer weight = entry.getValue();</span>
 
-<span class="nc" id="L129">            HuffmanTree node = new HuffmanTree(symbol, weight);</span>
-<span class="nc" id="L130">            heap.insert(node);</span>
-<span class="nc" id="L131">        }</span>
+<span class="fc" id="L115">            HuffmanTree node = new HuffmanTree(symbol, weight);</span>
+<span class="fc" id="L116">            heap.insert(node);</span>
+<span class="fc" id="L117">        }</span>
 
-<span class="nc" id="L133">        return heap;</span>
+<span class="fc" id="L119">        return heap;</span>
     }
 
     /**
-     * Recursive helper that generates the encoding table for each individual symbol in the string and
-     * stores them in a HashMap
-     * 
+     * Recursive helper that generates the encoding table for each individual
+     * symbol in the string and stores them in a HashMap
+     *
      * @param tree
      * @param codes
-     * @param code 
+     * @param code
      */
     public static void generateCodes(HuffmanTree tree, HashMap codes, String code) {
-<span class="nc bnc" id="L145" title="All 4 branches missed.">        if (tree.getLeft() == null &amp;&amp; tree.getRight() == null) {</span>
-<span class="nc" id="L146">            System.out.println(tree.getValue() + &quot;: &quot; + code);</span>
-<span class="nc" id="L147">            codes.put(tree.getValue(), code);</span>
-<span class="nc" id="L148">            return;</span>
+<span class="pc bpc" id="L131" title="1 of 4 branches missed.">        if (tree.getLeft() == null &amp;&amp; tree.getRight() == null) {</span>
+<span class="fc" id="L132">            System.out.println(tree.getValue() + &quot;: &quot; + code);</span>
+<span class="fc" id="L133">            codes.put(tree.getValue(), code);</span>
+<span class="fc" id="L134">            return;</span>
         }
 
-<span class="nc" id="L151">        generateCodes(tree.getLeft(), codes, code + &quot;0&quot;);</span>
-<span class="nc" id="L152">        generateCodes(tree.getRight(), codes, code + &quot;1&quot;);</span>
-<span class="nc" id="L153">    }</span>
-    
-    
-    /**
-     * returns a serialized string representation of the Huffman tree
-     * @param tree
-     * @return
-     * @throws IOException 
-     */
-    public String serializeHuffmanTree(HuffmanTree tree) throws IOException {
-<span class="nc" id="L163">        ByteArrayOutputStream bo = new ByteArrayOutputStream();</span>
-<span class="nc" id="L164">        ObjectOutputStream so = new ObjectOutputStream(bo);</span>
-<span class="nc" id="L165">        so.writeObject(tree);</span>
-<span class="nc" id="L166">        so.flush();</span>
-<span class="nc" id="L167">        return bo.toString();</span>
-    }
-    
-    
-    /**
-     * De-serializes the string representation of a Huffman tree back to object form
-     * 
-     * @param serialized
-     * @return
-     * @throws IOException 
-     */
-    public HuffmanTree deserializeHuffmanTree(String serialized) throws IOException {
-<span class="nc" id="L179">        byte b[] = serialized.getBytes(); </span>
-<span class="nc" id="L180">        ByteArrayInputStream bi = new ByteArrayInputStream(b);</span>
-<span class="nc" id="L181">        ObjectInputStream si = new ObjectInputStream(bi);</span>
-        
-<span class="nc" id="L183">        HuffmanTree output = new HuffmanTree();</span>
-        try {
-<span class="nc" id="L185">            output = (HuffmanTree) si.readObject();   </span>
-<span class="nc" id="L186">        } catch (Exception e) {</span>
-<span class="nc" id="L187">            System.out.println(e.getMessage());</span>
-<span class="nc" id="L188">        }</span>
-        
-<span class="nc" id="L190">        return output;</span>
-    }
+<span class="fc" id="L137">        generateCodes(tree.getLeft(), codes, code + &quot;0&quot;);</span>
+<span class="fc" id="L138">        generateCodes(tree.getRight(), codes, code + &quot;1&quot;);</span>
+<span class="fc" id="L139">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
