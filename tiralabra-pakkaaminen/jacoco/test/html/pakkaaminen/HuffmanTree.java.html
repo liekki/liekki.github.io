@@ -55,7 +55,7 @@ public class HuffmanTree {
 <span class="fc" id="L55">        this.left = null;</span>
 <span class="fc" id="L56">        this.right = null;</span>
 <span class="fc" id="L57">    }</span>
-    
+
     /**
      * Constructor with children
      *
@@ -129,38 +129,39 @@ public class HuffmanTree {
      * children (pre-order) and writing the node's symbol
      *
      * @param node a HuffmanTree node
-     * @param serialized an ObjectOutputStream to be written 
+     * @param serialized an ObjectOutputStream to be written
      * @throws java.io.IOException
      */
     public static void serializeNode(HuffmanTree node, ObjectOutputStream serialized) throws java.io.IOException {
 <span class="fc bfc" id="L136" title="All 2 branches covered.">        if (node == null) {</span>
-<span class="fc" id="L137">            serialized.writeChar('#');</span>
+<span class="fc" id="L137">            serialized.writeBoolean(true);</span>
         } else {
-<span class="fc" id="L139">            serialized.writeChar(node.getValue()); // Symbol</span>
+<span class="fc" id="L139">            serialized.writeBoolean(false);</span>
+<span class="fc" id="L140">            serialized.writeChar(node.getValue()); // Symbol</span>
 
-<span class="fc" id="L141">            serializeNode(node.getLeft(), serialized);</span>
-<span class="fc" id="L142">            serializeNode(node.getRight(), serialized);</span>
+<span class="fc" id="L142">            serializeNode(node.getLeft(), serialized);</span>
+<span class="fc" id="L143">            serializeNode(node.getRight(), serialized);</span>
         }
-<span class="fc" id="L144">    }</span>
+<span class="fc" id="L145">    }</span>
 
     /**
      * De-serializes given stream back into a HuffmanTree
+     *
      * @param stream an ObjectInputStream to be read from
-     * @return the de-serialized HuffmanTree 
+     * @return the de-serialized HuffmanTree
      * @throws java.io.IOException
      */
     public static HuffmanTree deserializeNode(ObjectInputStream stream) throws java.io.IOException {
-<span class="fc" id="L153">        char symbol = stream.readChar();</span>
-
-<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (symbol == '#') {</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (stream.readBoolean()) {</span>
 <span class="fc" id="L156">            return null;</span>
         }
+<span class="fc" id="L158">        char symbol = stream.readChar();</span>
 
-<span class="fc" id="L159">        HuffmanTree node = new HuffmanTree(symbol);</span>
-<span class="fc" id="L160">        node.setLeft(deserializeNode(stream));</span>
-<span class="fc" id="L161">        node.setRight(deserializeNode(stream));</span>
+<span class="fc" id="L160">        HuffmanTree node = new HuffmanTree(symbol);</span>
+<span class="fc" id="L161">        node.setLeft(deserializeNode(stream));</span>
+<span class="fc" id="L162">        node.setRight(deserializeNode(stream));</span>
 
-<span class="fc" id="L163">        return node;</span>
+<span class="fc" id="L164">        return node;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

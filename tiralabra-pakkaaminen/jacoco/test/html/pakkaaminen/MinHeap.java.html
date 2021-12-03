@@ -96,7 +96,7 @@ public class MinHeap {
         }
 
         // if min heap property does not hold true for node we swap over and repeat
-<span class="pc bpc" id="L99" title="1 of 4 branches missed.">        if (this.heap[n].getWeight() &gt; this.heap[left(n)].getWeight() || this.heap[n].getWeight() &gt; this.heap[right(n)].getWeight()) {</span>
+<span class="fc bfc" id="L99" title="All 4 branches covered.">        if (this.heap[n].getWeight() &gt; this.heap[left(n)].getWeight() || this.heap[n].getWeight() &gt; this.heap[right(n)].getWeight()) {</span>
 <span class="fc bfc" id="L100" title="All 2 branches covered.">            if (this.heap[left(n)].getWeight() &lt; this.heap[right(n)].getWeight()) {</span>
 <span class="fc" id="L101">                swap(n, left(n));</span>
 <span class="fc" id="L102">                heapify(left(n));</span>

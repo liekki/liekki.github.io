@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>File.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pakkaaminen</a> &gt; <a href="index.source.html" class="el_package">pakkaaminen</a> &gt; <span class="el_source">File.java</span></div><h1>File.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pakkaaminen;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+/**
+ * File utility class providing operations such as read/write
+ * @author liekki
+ */
+<span class="nc" id="L17">public class File {</span>
+
+    /**
+     * Writes provided bytes to a file
+     *
+     * @param filename filename to be written to
+     * @param bytes bytes to write
+     */
+    public static void write(String filename, byte[] bytes) throws java.io.IOException {
+<span class="fc" id="L26">        try ( FileOutputStream stream = new FileOutputStream(&quot;./&quot; + filename)) {</span>
+<span class="fc" id="L27">            stream.write(bytes);</span>
+        }
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Reads file from disk and returns the contents as byte array
+     *
+     * @param filename file to be read
+     * @return bytes of given filename
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     */
+    public static byte[] read(String filename) throws java.io.IOException, java.io.FileNotFoundException {
+<span class="fc" id="L40">        FileInputStream fileInput = new FileInputStream(filename);</span>
+<span class="fc" id="L41">        BufferedInputStream stream = new BufferedInputStream(fileInput);</span>
+<span class="fc" id="L42">        ByteArrayOutputStream buffer = new ByteArrayOutputStream();</span>
+
+<span class="fc" id="L44">        int result = stream.read();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        while (result != -1) {</span>
+<span class="fc" id="L46">            buffer.write((byte) result);</span>
+<span class="fc" id="L47">            result = stream.read();</span>
+        }
+
+<span class="fc" id="L50">        byte[] bytes = buffer.toByteArray();</span>
+        
+<span class="fc" id="L52">        return bytes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
