@@ -15,21 +15,35 @@ package pakkaaminen;
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-<span class="fc" id="L18">        Huffman huffman = new Huffman();</span>
+        /*
+        Huffman huffman = new Huffman();
 
         try {
-<span class="fc" id="L21">            huffman.encodeString(&quot;this is an example of a huffman tree&quot;);</span>
-<span class="fc" id="L22">            huffman.write(&quot;test.huff&quot;);</span>
-<span class="nc" id="L23">        } catch (Exception e) {</span>
-<span class="nc" id="L24">            System.out.println(&quot;Exception while encoding/writing: &quot; + e.getMessage());</span>
-<span class="fc" id="L25">        }</span>
+            huffman.encodeString(&quot;this is an example of a huffman tree&quot;);
+            huffman.write(&quot;test.huff&quot;);
+        } catch (Exception e) {
+            System.out.println(&quot;Exception while encoding/writing: &quot; + e.getMessage());
+        }
 
         try {
-<span class="fc" id="L28">            System.out.println(huffman.read(&quot;test.huff&quot;));</span>
-<span class="nc" id="L29">        } catch (Exception e) {</span>
-<span class="nc" id="L30">            System.out.println(&quot;Exception while decoding/reading: &quot; + e.getMessage());</span>
-<span class="fc" id="L31">        }</span>
-<span class="fc" id="L32">    }</span>
+            System.out.println(huffman.read(&quot;test.huff&quot;));
+        } catch (Exception e) {
+            System.out.println(&quot;Exception while decoding/reading: &quot; + e.getMessage());
+        } */
+
+<span class="fc" id="L34">        LZW lzw = new LZW();</span>
+
+        try {
+            //lzw.encode(&quot;this is a test and its not working&quot;);
+            //lzw.write(&quot;juuh.lzw&quot;);
+            
+            // System.out.println(lzw.read(&quot;juuh.lzw&quot;));
+        } catch (Exception e) {
+             System.out.println(&quot;Exception while encoding/writing: &quot; + e.getMessage());
+        }
+
+       //System.out.println(lzw.decode(lzw.encode(&quot;this is a test and its not working&quot;)));
+<span class="fc" id="L46">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
