@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Benchmark.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pakkaaminen</a> &gt; <a href="index.source.html" class="el_package">pakkaaminen</a> &gt; <span class="el_source">Benchmark.java</span></div><h1>Benchmark.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pakkaaminen;
+
+import java.util.ArrayList;
+import org.sk.PrettyTable;
+
+/**
+ *
+ * @author liekki
+ */
+public class Benchmark {
+    private PrettyTable table;
+
+<span class="fc" id="L18">    public Benchmark() {</span>
+<span class="fc" id="L19">        this.table = new PrettyTable(&quot;Method&quot;, &quot;Test&quot;, &quot;Original (bytes)&quot;, &quot;Compressed (bytes)&quot;, &quot;Compression (%)&quot;, &quot;Encoding (ms)&quot;, &quot;Decoding (ms)&quot;);</span>
+<span class="fc" id="L20">    }</span>
+
+    public void run(String inputFilename, String compressionMethod) {
+<span class="fc" id="L23">        System.out.println(&quot;Starting benchmark \&quot;&quot; + compressionMethod + &quot;\&quot; on &quot; + inputFilename + &quot;.&quot;);</span>
+
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        switch (compressionMethod) {</span>
+            case &quot;lzw&quot;:
+<span class="fc" id="L27">                LZW lzw = new LZW();</span>
+
+                try {
+<span class="fc" id="L30">                    byte[] inputBytes = File.read(&quot;./testdata/&quot; + inputFilename);</span>
+<span class="fc" id="L31">                    String input = new String(inputBytes);</span>
+                    
+<span class="fc" id="L33">                    long encodingStart = System.currentTimeMillis();</span>
+<span class="fc" id="L34">                    ArrayList&lt;Integer&gt; encoded = lzw.encode(input);</span>
+<span class="fc" id="L35">                    lzw.write(&quot;benchmark.tmp&quot;);</span>
+<span class="fc" id="L36">                    long encodingEnd = System.currentTimeMillis();</span>
+                    
+                    
+<span class="fc" id="L39">                    long decodingStart = System.currentTimeMillis();</span>
+<span class="fc" id="L40">                    String decoded = lzw.read(&quot;benchmark.tmp&quot;);</span>
+<span class="fc" id="L41">                    long decodingEnd = System.currentTimeMillis();</span>
+                    
+<span class="fc" id="L43">                    double rate = 1 - 1.0 * (encoded.size() * 2) / inputBytes.length;</span>
+                    
+<span class="fc" id="L45">                    this.table.addRow(compressionMethod, inputFilename, Long.toString(inputBytes.length), Long.toString(encoded.size() * 2), String.format(&quot;%.2f&quot;, 100.0* rate) + &quot;%&quot;, Long.toString(encodingEnd-encodingStart), Long.toString(decodingEnd-decodingStart));</span>
+                    
+<span class="fc" id="L47">                    System.out.println(&quot;Done! ...&quot;);</span>
+<span class="nc" id="L48">                } catch (Exception e) {</span>
+<span class="nc" id="L49">                    System.out.println(&quot;Exception occurred: &quot; + e.getMessage());</span>
+<span class="fc" id="L50">                }</span>
+
+<span class="nc" id="L52">                break;</span>
+        
+            case &quot;huffman&quot;:
+            default:               
+<span class="fc" id="L56">                Huffman huffman = new Huffman();</span>
+                
+                try {
+                    
+<span class="fc" id="L60">                    long encodingStart = System.currentTimeMillis();</span>
+<span class="fc" id="L61">                    byte[] inputBytes = File.read(&quot;./testdata/&quot; + inputFilename);</span>
+<span class="fc" id="L62">                    String input = new String(inputBytes);                  </span>
+<span class="fc" id="L63">                    int encodedSize = huffman.encodeString(input);</span>
+<span class="fc" id="L64">                    huffman.write(&quot;benchmark.tmp&quot;);</span>
+<span class="fc" id="L65">                    long encodingEnd = System.currentTimeMillis();</span>
+                    
+
+<span class="fc" id="L68">                    long decodingStart = System.currentTimeMillis();</span>
+<span class="fc" id="L69">                    String decoded = huffman.read(&quot;benchmark.tmp&quot;);</span>
+<span class="fc" id="L70">                    long decodingEnd = System.currentTimeMillis();</span>
+                                        
+<span class="fc" id="L72">                    double rate = 1 - 1.0 * encodedSize / inputBytes.length;</span>
+                    
+<span class="fc" id="L74">                    this.table.addRow(compressionMethod, inputFilename, Long.toString(inputBytes.length), Long.toString(encodedSize), String.format(&quot;%.2f&quot;, 100.0* rate) + &quot;%&quot;, Long.toString(encodingEnd-encodingStart), Long.toString(decodingEnd-decodingStart));</span>
+<span class="fc" id="L75">                    System.out.println(&quot;Done! ...&quot;);</span>
+<span class="nc" id="L76">                } catch (Exception e) {</span>
+<span class="nc" id="L77">                    System.out.println(&quot;Exception occurred: &quot; + e.getMessage());</span>
+<span class="fc" id="L78">                }</span>
+                
+                break;
+        }
+<span class="fc" id="L82">    }</span>
+    
+    public void print() {
+<span class="fc" id="L85">        System.out.println(this.table);</span>
+<span class="fc" id="L86">    } </span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

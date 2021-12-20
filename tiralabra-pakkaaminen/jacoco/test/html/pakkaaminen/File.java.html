@@ -23,10 +23,10 @@ import java.io.FileOutputStream;
      * @param bytes bytes to write
      */
     public static void write(String filename, byte[] bytes) throws java.io.IOException {
-<span class="nc" id="L26">        try ( FileOutputStream stream = new FileOutputStream(&quot;./&quot; + filename)) {</span>
-<span class="nc" id="L27">            stream.write(bytes);</span>
+<span class="fc" id="L26">        try ( FileOutputStream stream = new FileOutputStream(&quot;./&quot; + filename)) {</span>
+<span class="fc" id="L27">            stream.write(bytes);</span>
         }
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L29">    }</span>
 
     /**
      * Reads file from disk and returns the contents as byte array
@@ -37,19 +37,19 @@ import java.io.FileOutputStream;
      * @throws java.io.FileNotFoundException
      */
     public static byte[] read(String filename) throws java.io.IOException, java.io.FileNotFoundException {
-<span class="nc" id="L40">        FileInputStream fileInput = new FileInputStream(filename);</span>
-<span class="nc" id="L41">        BufferedInputStream stream = new BufferedInputStream(fileInput);</span>
-<span class="nc" id="L42">        ByteArrayOutputStream buffer = new ByteArrayOutputStream();</span>
+<span class="fc" id="L40">        FileInputStream fileInput = new FileInputStream(filename);</span>
+<span class="fc" id="L41">        BufferedInputStream stream = new BufferedInputStream(fileInput);</span>
+<span class="fc" id="L42">        ByteArrayOutputStream buffer = new ByteArrayOutputStream();</span>
 
-<span class="nc" id="L44">        int result = stream.read();</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">        while (result != -1) {</span>
-<span class="nc" id="L46">            buffer.write((byte) result);</span>
-<span class="nc" id="L47">            result = stream.read();</span>
+<span class="fc" id="L44">        int result = stream.read();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        while (result != -1) {</span>
+<span class="fc" id="L46">            buffer.write((byte) result);</span>
+<span class="fc" id="L47">            result = stream.read();</span>
         }
 
-<span class="nc" id="L50">        byte[] bytes = buffer.toByteArray();</span>
+<span class="fc" id="L50">        byte[] bytes = buffer.toByteArray();</span>
         
-<span class="nc" id="L52">        return bytes;</span>
+<span class="fc" id="L52">        return bytes;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

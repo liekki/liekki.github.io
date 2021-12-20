@@ -104,16 +104,16 @@ public class LZW {
      * @throws java.io.IOException
      */
     public void write(String filename) throws java.io.IOException {
-<span class="nc" id="L107">        ByteArrayOutputStream output = new ByteArrayOutputStream();</span>
+<span class="fc" id="L107">        ByteArrayOutputStream output = new ByteArrayOutputStream();</span>
 
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        for (int code : codes) {</span>
-<span class="nc" id="L110">            byte[] twoBytes = integerToTwoBytes(code);</span>
-<span class="nc" id="L111">            output.write(integerToTwoBytes(code));</span>
-<span class="nc" id="L112">        }</span>
-<span class="nc" id="L113">        byte[] bytes = output.toByteArray();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (int code : codes) {</span>
+<span class="fc" id="L110">            byte[] twoBytes = integerToTwoBytes(code);</span>
+<span class="fc" id="L111">            output.write(integerToTwoBytes(code));</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">        byte[] bytes = output.toByteArray();</span>
 
-<span class="nc" id="L115">        File.write(filename, bytes);</span>
-<span class="nc" id="L116">    }</span>
+<span class="fc" id="L115">        File.write(filename, bytes);</span>
+<span class="fc" id="L116">    }</span>
 
     /**
      * Reads data from a file and returns the decoded message
@@ -123,13 +123,13 @@ public class LZW {
      */
     public String read(String filename) {
         try {
-<span class="nc" id="L126">            byte[] bytes = File.read(filename);</span>
-<span class="nc" id="L127">            ArrayList&lt;Integer&gt; codes = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">            for(int i = 0; i &lt; bytes.length / 2; i++) {</span>
-<span class="nc" id="L129">                codes.add(twoBytesToInteger(Arrays.copyOfRange(bytes, i*2, (i*2+2))));</span>
+<span class="fc" id="L126">            byte[] bytes = File.read(filename);</span>
+<span class="fc" id="L127">            ArrayList&lt;Integer&gt; codes = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">            for(int i = 0; i &lt; bytes.length / 2; i++) {</span>
+<span class="fc" id="L129">                codes.add(twoBytesToInteger(Arrays.copyOfRange(bytes, i*2, (i*2+2))));</span>
             }
 
-<span class="nc" id="L132">            return decode(codes);</span>
+<span class="fc" id="L132">            return decode(codes);</span>
 <span class="nc" id="L133">        } catch (Exception e) {</span>
 <span class="nc" id="L134">            System.out.println(&quot;Exception! &quot; + e.getMessage());</span>
 <span class="nc" id="L135">            return null;</span>
@@ -137,25 +137,24 @@ public class LZW {
     } // 0-1, 2-3, 4-5
 
     /**
-     * returns a 2-byte representation of provided int.
+     * Utility method; returns a 2-byte representation of provided int.
      * @param val integer to convert
      * @return byte[] of size 2
      */
     public static byte[] integerToTwoBytes(int val) {
-<span class="nc" id="L145">        byte[] bytes = new byte[2];</span>
-<span class="nc" id="L146">        bytes[0] = (byte) ((val &gt;&gt;&gt; 8) &amp; 0xFF);</span>
-<span class="nc" id="L147">        bytes[1] = (byte) (val &amp; 0xFF);</span>
-<span class="nc" id="L148">        return bytes;</span>
+<span class="fc" id="L145">        byte[] bytes = new byte[2];</span>
+<span class="fc" id="L146">        bytes[0] = (byte) ((val &gt;&gt;&gt; 8) &amp; 0xFF);</span>
+<span class="fc" id="L147">        bytes[1] = (byte) (val &amp; 0xFF);</span>
+<span class="fc" id="L148">        return bytes;</span>
     }
     
     /**
-     * converts 2-bytes to the int representation
+     * Utility method; converts 2-bytes to the int representation
      * @param bytes byte[] of size 2
      * @return int representation of the bytes
      */
     public static int twoBytesToInteger(byte[] bytes) {
-<span class="nc" id="L157">        return bytes[1] | bytes[0] &lt;&lt; 8;</span>
-
+<span class="fc" id="L157">        return bytes[1] | bytes[0] &lt;&lt; 8;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
